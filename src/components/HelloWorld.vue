@@ -29,7 +29,9 @@
       <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
     </ul>
 
-    <router-view />
+    <div v-if="isModalOpen" @click.self="close" class="backdrop">
+      <router-view />
+    </div>
   </div>
 </template>
 
@@ -38,6 +40,16 @@ export default {
   name: 'HelloWorld',
   props: {
     msg: String,
+  },
+  computed: {
+    isModalOpen() {
+      return this.$route.name === 'About';
+    },
+  },
+  methods: {
+    close() {
+      this.$router.push({ name: 'Home' });
+    },
   },
 };
 </script>
@@ -57,5 +69,16 @@ li {
 }
 a {
   color: #42b983;
+}
+.backdrop {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, .5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>
