@@ -29,9 +29,11 @@
       <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
     </ul>
 
-    <div v-if="isModalOpen" @click.self="close" class="backdrop">
-      <router-view />
-    </div>
+    <transition name="fade">
+      <div v-if="isModalOpen" @click.self="close" class="backdrop">
+        <router-view />
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -80,5 +82,13 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter,
+.fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
 }
 </style>
